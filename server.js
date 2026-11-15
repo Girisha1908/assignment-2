@@ -7,14 +7,15 @@ import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { getRandomUser } from './src/users.js'
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
+const clientUrl = process.env.CLIENT_URL || '*'
 
 const app = express()
 const httpServer = createServer(app)
 
 // Allow the React app (running on a different port) to connect
 const io = new Server(httpServer, {
-  cors: { origin: '*' },
+  cors: { origin: clientUrl },
 })
 
 app.get('/', (req, res) => {
@@ -47,5 +48,5 @@ io.on('connection', (socket) => {
 })
 
 httpServer.listen(PORT, () => {
-  console.log(`Chat server running on http://localhost:${PORT}`)
+  console.log(`Chat server running on port ${PORT}`)
 })

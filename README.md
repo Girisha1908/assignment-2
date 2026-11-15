@@ -23,7 +23,7 @@ Messages are not saved anywhere. They disappear when you refresh the page or res
 
 1. **Emojis**: the smiley button opens a searchable emoji picker with categories and results. Clicking one adds it to the message.
 2. **Mentions**: clicking the `@` button (or typing `@`) shows the user list. Typing more letters (for example `@Ca`) narrows the list. Clicking a name fills it in, and mentions are highlighted in blue in the sent message.
-3. **socket.io server**: `server.js` is an Express server with socket.io on port 3001.
+3. **socket.io server**: `server.js` is an Express server with socket.io. It uses port 3001 locally and Render's `PORT` in production.
    - The browser **publishes** the text on the `send-message` event.
    - The server adds a random user, the time and an id, then sends the message to all browsers on the `new-message` event.
    - Every browser **subscribes** to `new-message` and adds the message to its list.
@@ -39,6 +39,32 @@ npm run dev
 Open the React app's address in two tabs to see messages arrive in both.
 
 You can also start them separately with `npm run server` and `npm run client`.
+
+## Deploy to Render
+
+Deploy the frontend and backend as two Render services from this repository.
+
+### Backend Web Service
+
+- **Build command:** `npm install`
+- **Start command:** `npm run server`
+- **Environment variable:** `CLIENT_URL=https://your-frontend.onrender.com`
+
+Render provides the `PORT` variable automatically. The server reads it and
+allows Socket.IO connections from the frontend URL.
+
+### Frontend Static Site
+
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
+- **Environment variable:** `VITE_SOCKET_URL=https://your-backend.onrender.com`
+
+Set `VITE_SOCKET_URL` before deploying or rebuilding the frontend because Vite
+includes `VITE_` variables in the production bundle. Open the deployed
+frontend in two browsers to verify that messages appear in both.
+
+Messages are held in server memory only. They are broadcast in real time, but
+they are not persisted and will disappear when the backend restarts or redeploys.
 
 ## Architecture
 
