@@ -1,0 +1,31 @@
+:root {
+  --canvas: #edf2f6;
+  --surface: #fff;
+  --text: #454b53;
+  --muted: #8b9299;
+  --border: #d7dee5;
+  --accent: #6099eb;
+  --accent-dark: #4d87da;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--text);
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+button,
+input {
+  font-family: inherit;
+}
