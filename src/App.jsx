@@ -5,8 +5,18 @@ import { socket } from './socket.js'
 import { getRandomUser } from './users.js'
 import './App.css'
 
+const starterMessages = [
+  {
+    id: 'welcome',
+    user: 'PubNub Bot',
+    time: '12:16',
+    text: 'Welcome to Team Chat. 👋👋 Send a message now to start interacting with other users in the app. ⬇️',
+    isOwn: false,
+  },
+]
+
 function App() {
-  const [messages, setMessages] = useState([]) // every message so far
+  const [messages, setMessages] = useState(starterMessages) // every message so far
   const bottomRef = useRef(null) // an empty div at the end of the list
 
   // true while connected to the chat server (server.js)
@@ -66,10 +76,17 @@ function App() {
   return (
     <div className="chat">
       <header className="chat-header">
-        <h1>Team Chat</h1>
-        <span className={connected ? 'status online' : 'status offline'}>
-          {connected ? 'Connected' : 'Offline (messages stay in this browser)'}
-        </span>
+        <div>
+          <h1>Introductions</h1>
+          <p>This Channel Is For Company Wide Chatter</p>
+        </div>
+        <div className="header-right">
+          <span className="message-count">3 | 100</span>
+          <i className="fa-regular fa-user-group header-icon" aria-hidden="true"></i>
+          <span className={connected ? 'status online' : 'status offline'}>
+            {connected ? 'Connected' : 'Offline'}
+          </span>
+        </div>
       </header>
 
       <main className="messages">

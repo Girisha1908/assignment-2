@@ -1,11 +1,6 @@
 import { useState } from 'react'
+import EmojiPicker from 'emoji-picker-react'
 import { user_list } from './users.js'
-
-const emojis = [
-  '😀', '😂', '😊', '😍', '😎', '🤔', '😅', '😢',
-  '😮', '😴', '🙌', '👍', '👋', '👏', '🙏', '💪',
-  '🎉', '🔥', '❤️', '✅', '⭐', '☕', '🚀', '💡',
-]
 
 // The box at the bottom: text input, emoji picker, @mention list and Send button
 function ChatInput({ onSend }) {
@@ -33,8 +28,8 @@ function ChatInput({ onSend }) {
   }
 
   // --- emojis ---
-  function pickEmoji(emoji) {
-    setText(text + emoji)
+  function pickEmoji(emojiData) {
+    setText(text + emojiData.emoji)
   }
 
   // --- send ---
@@ -64,17 +59,13 @@ function ChatInput({ onSend }) {
 
       {showEmojis && (
         <div className="popup emoji-panel">
-          {emojis.map((emoji) => (
-            <button
-              key={emoji}
-              type="button"
-              className="emoji"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => pickEmoji(emoji)}
-            >
-              {emoji}
-            </button>
-          ))}
+          <EmojiPicker
+            onEmojiClick={pickEmoji}
+            theme="dark"
+            width={280}
+            height={350}
+            previewConfig={{ showPreview: false }}
+          />
         </div>
       )}
 

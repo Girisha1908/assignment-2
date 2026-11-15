@@ -21,7 +21,7 @@ Messages are not saved anywhere. They disappear when you refresh the page or res
 
 ### Stretch goals done
 
-1. **Emojis**: the smiley button opens a panel of 24 emojis. Clicking one adds it to the message.
+1. **Emojis**: the smiley button opens a searchable emoji picker with categories and results. Clicking one adds it to the message.
 2. **Mentions**: clicking the `@` button (or typing `@`) shows the user list. Typing more letters (for example `@Ca`) narrows the list. Clicking a name fills it in, and mentions are highlighted in blue in the sent message.
 3. **socket.io server**: `server.js` is an Express server with socket.io on port 3001.
    - The browser **publishes** the text on the `send-message` event.
