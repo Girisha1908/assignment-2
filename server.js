@@ -8,7 +8,7 @@ import { Server } from 'socket.io'
 import { getRandomUser } from './src/users.js'
 
 const PORT = process.env.PORT || 3001
-const clientUrl = process.env.CLIENT_URL || '*'
+const clientUrl = (process.env.CLIENT_URL || '*').replace(/\/$/, '')
 
 const app = express()
 const httpServer = createServer(app)
