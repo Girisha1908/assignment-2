@@ -8,7 +8,7 @@ const emojis = [
 ]
 
 // The box at the bottom: text input, emoji picker, @mention list and Send button
-function ChatInput({ onSend, disabled }) {
+function ChatInput({ onSend }) {
   const [text, setText] = useState('')
   const [showEmojis, setShowEmojis] = useState(false)
 
@@ -26,6 +26,12 @@ function ChatInput({ onSend, disabled }) {
     setText(words.join(' ') + ' ')
   }
 
+  // Clicking the @ button adds "@" to the text, which opens the user list above
+  function startMention() {
+    const needsSpace = text !== '' && !text.endsWith(' ')
+    setText(text + (needsSpace ? ' @' : '@'))
+  }
+
   // --- emojis ---
   function pickEmoji(emoji) {
     setText(text + emoji)
@@ -34,7 +40,7 @@ function ChatInput({ onSend, disabled }) {
   // --- send ---
   function handleSubmit(event) {
     event.preventDefault() // stop the form from reloading the page
-    if (text.trim() === '' || disabled) return // don't send empty messages, or when offline
+    if (text.trim() === '') return // don't send empty messages
 
     onSend(text.trim())
     setText('')
@@ -90,8 +96,18 @@ function ChatInput({ onSend, disabled }) {
           <i className="fa-regular fa-face-smile"></i>
         </button>
 
-        <button type="submit" className="send-button" disabled={disabled}>
-          Send <i className="fa-solid fa-paper-plane"></i>
+        <button
+          type="button"
+          className="icon-button"
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={startMention}
+          aria-label="Mention someone"
+        >
+          @
+        </button>
+
+        <button type="submit" className="send-button" aria-label="Send">
+          <i className="fa-solid fa-paper-plane"></i>
         </button>
       </div>
     </form>

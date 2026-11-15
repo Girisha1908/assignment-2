@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
   socket.on('send-message', (text) => {
     const message = {
       id: nextId,
+      senderId: socket.id,
       user: getRandomUser(),
       text: text,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }),

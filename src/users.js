@@ -1,16 +1,13 @@
 // The people who can "send" messages. Each message gets one of them at random.
 export const user_list = ['Alan', 'Bob', 'Carol', 'Dean', 'Elin']
 
-// A colour for each user's avatar circle
+// A colour for each user's avatar and name (dark enough to read on white)
 export const userColors = {
-  Alan: '#e8505b',
-  Bob: '#4c8bf5',
-  Carol: '#c7d34a',
-  Dean: '#9b6bd6',
-  Elin: '#f08a78',
-  'PubNub Bot': '#df5057',
-  'Gregory Goolsby': '#d9e86a',
-  'Elin Emanuel': '#ed9295',
+  Alan: '#e5484d',
+  Bob: '#3b82f6',
+  Carol: '#a37a00',
+  Dean: '#8b5cf6',
+  Elin: '#e0613f',
 }
 
 export function getRandomUser() {

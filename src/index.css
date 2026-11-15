@@ -1,11 +1,15 @@
+/* WhatsApp-style colours, used everywhere through var(--name) */
 :root {
-  --canvas: #edf2f6;
-  --surface: #fff;
-  --text: #454b53;
-  --muted: #8b9299;
-  --border: #d7dee5;
-  --accent: #6099eb;
-  --accent-dark: #4d87da;
+  --canvas: #efeae2; /* chat background */
+  --surface: #fff; /* white panels and other people's bubbles */
+  --panel: #f0f2f5; /* light grey bars */
+  --own-bubble: #d9fdd3; /* my messages */
+  --text: #111b21;
+  --muted: #667781;
+  --border: #e9edef;
+  --accent: #00a884; /* WhatsApp green */
+  --accent-dark: #008069; /* header green */
+  --ticks: #53bdeb; /* blue "read" ticks */
 }
 
 * {

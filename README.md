@@ -11,16 +11,18 @@ Messages are not saved anywhere. They disappear when you refresh the page or res
 ## Features
 
 - Each message is given a random user from `["Alan", "Bob", "Carol", "Dean", "Elin"]` (the server picks it)
-- Each message shows the user's avatar, name and the time it was sent
+- Each message shows the user's avatar, name and the time it was sent.
+  Your own messages appear on the right in a green bubble, everyone else's on the left (WhatsApp style).
 - Like button at the right end of every message. The count starts at 0 and goes up by 1 on each click.
   Likes are only counted in your own browser tab; they are not sent to the server.
 - Empty messages are not sent
-- A "Connected" / "Server offline" badge in the header. While the server is offline, the Send button is disabled.
+- A "Connected" / "Offline" badge in the header. If the server is not running, messages still appear,
+  but only in your own browser (the random user is picked in the browser instead).
 
 ### Stretch goals done
 
 1. **Emojis**: the smiley button opens a panel of 24 emojis. Clicking one adds it to the message.
-2. **Mentions**: typing `@` shows the user list. Typing more letters (for example `@Ca`) narrows the list. Clicking a name fills it in, and mentions are highlighted in blue in the sent message.
+2. **Mentions**: clicking the `@` button (or typing `@`) shows the user list. Typing more letters (for example `@Ca`) narrows the list. Clicking a name fills it in, and mentions are highlighted in blue in the sent message.
 3. **socket.io server**: `server.js` is an Express server with socket.io on port 3001.
    - The browser **publishes** the text on the `send-message` event.
    - The server adds a random user, the time and an id, then sends the message to all browsers on the `new-message` event.
@@ -47,7 +49,7 @@ Browser
   v
 React app
   ├─ ChatInput.jsx   - message input, emojis and mentions
-  ├─ App.jsx         - message list and connection status
+  ├─ App.jsx         - message thread and connection status
   └─ Message.jsx     - one message and its like button
   |
   | socket.io: send-message

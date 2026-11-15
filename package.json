@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --names server,app \"node server.js\" \"vite\"",
+    "dev": "concurrently --names server,app \"node --watch server.js\" \"vite\"",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "server": "node server.js",
+    "server": "node --watch server.js",
     "client": "vite"
   },
   "dependencies": {

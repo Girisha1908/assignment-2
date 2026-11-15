@@ -1,48 +1,54 @@
 import { useState } from 'react'
 import { user_list, userColors } from './users.js'
 
-// One chat message: avatar, name, time, the text and a like button on the right
+// One chat message. Mine sit on the right in a green bubble, others on the left in white.
 function Message({ message }) {
   const [likes, setLikes] = useState(0) // every message starts with 0 likes
 
   // Split the text into words so we can highlight @mentions like "@Bob"
   const words = message.text.split(' ')
-  const avatarColor = userColors[message.user] || '#d8e66a'
+  const userColor = userColors[message.user] || '#128c7e'
 
   return (
-    <article className="message">
-      <div className="avatar" style={{ background: avatarColor }}>
-        {message.user.slice(0, 2).toUpperCase()}
+    <article className={message.isOwn ? 'message own' : 'message'}>
+      {!message.isOwn && (
+        <div className="avatar" style={{ background: userColor }}>
+          {message.user.slice(0, 2).toUpperCase()}
+        </div>
+      )}
+
+      <div className="bubble">
+        {!message.isOwn && (
+          <span className="message-user" style={{ color: userColor }}>
+            {message.user}
+          </span>
+        )}
+
+        <p className="message-text">
+          {words.map((word, index) => {
+            const isMention = word.startsWith('@') && user_list.includes(word.slice(1))
+            return (
+              <span key={index} className={isMention ? 'mention' : ''}>
+                {word}{' '}
+              </span>
+            )
+          })}
+        </p>
+
+        <span className="message-time">
+          {message.time}
+          {message.isOwn && <i className="fa-solid fa-check-double ticks"></i>}
+        </span>
       </div>
 
-      <div className="message-body">
-        <div className="message-info">
-          <span className="message-user">{message.user}</span>
-          <span className="message-time">{message.time}</span>
-        </div>
-
-        <div className="message-row">
-          <p className="bubble">
-            {words.map((word, index) => {
-              const isMention = word.startsWith('@') && user_list.includes(word.slice(1))
-              return (
-                <span key={index} className={isMention ? 'mention' : ''}>
-                  {word}{' '}
-                </span>
-              )
-            })}
-          </p>
-
-          <button
-            className={likes > 0 ? 'like-button liked' : 'like-button'}
-            onClick={() => setLikes(likes + 1)}
-            aria-label="Like message"
-          >
-            <i className="fa-solid fa-thumbs-up"></i>
-            <span>{likes}</span>
-          </button>
-        </div>
-      </div>
+      <button
+        className={likes > 0 ? 'like-button liked' : 'like-button'}
+        onClick={() => setLikes(likes + 1)}
+        aria-label="Like message"
+      >
+        <i className="fa-solid fa-thumbs-up"></i>
+        <span>{likes}</span>
+      </button>
     </article>
   )
 }
